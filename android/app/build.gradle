@@ -100,7 +100,6 @@ android {
         javaMaxHeapSize "4g"
     }
     compileSdkVersion 27
-
     defaultConfig {
         applicationId "com.nekya.zkrtestfirebase"
         minSdkVersion 16
@@ -112,6 +111,20 @@ android {
         }
         // because of firestore:
         multiDexEnabled true
+    }
+    signingConfigs {
+        release {
+            /*if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
+                storeFile file(MYAPP_RELEASE_STORE_FILE)
+                storePassword MYAPP_RELEASE_STORE_PASSWORD
+                keyAlias MYAPP_RELEASE_KEY_ALIAS
+                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            }*/
+            keyAlias 'zkr-test-firebase'
+            keyPassword '02-ro61U:9zl_Hjf3O7s'
+            storeFile file('zkr-test-firebase-release.keystore')
+            storePassword '02-ro61U:9zl_Hjf3O7s'
+        }
     }
     splits {
         abi {
@@ -125,6 +138,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
         debug {
             minifyEnabled false
@@ -136,7 +150,7 @@ android {
         variant.outputs.each { output ->
             // For each separate APK per architecture, set a unique version code as described here:
             // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
-            def versionCodes = ["armeabi-v7a":1, "x86":2]
+            def versionCodes = ["armeabi-v7a": 1, "x86": 2]
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
                 output.versionCodeOverride =
@@ -144,43 +158,37 @@ android {
             }
         }
     }
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {
-    compile(project(':react-native-firebase')) {
-        transitive = false
-    }
-    compile project(':appcenter-crashes')
-    compile project(':appcenter-analytics')
-    compile project(':appcenter')
+    implementation project(':appcenter-crashes')
+    implementation project(':appcenter-analytics')
+    implementation project(':appcenter')
     implementation(project(':react-native-firebase')) {
         transitive = false
     }
-
     // RNFirebase required dependencies
-    implementation "com.google.firebase:firebase-core:16.0.1"
-    implementation "com.google.android.gms:play-services-base:15.0.0"
-
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.android.gms:play-services-base:15.0.0'
     // RNFirebase optional dependencies
     // implementation "com.google.firebase:firebase-ads:15.0.0"
     // implementation "com.google.firebase:firebase-auth:15.1.0"
-    implementation "com.google.firebase:firebase-config:15.0.0"
+    implementation 'com.google.firebase:firebase-config:15.0.0'
     // implementation "com.google.firebase:firebase-database:15.0.0"
     // implementation "com.google.firebase:firebase-invites:15.0.1"
-    implementation "com.google.firebase:firebase-firestore:17.0.2"
+    implementation 'com.google.firebase:firebase-firestore:17.0.2'
     // implementation "com.google.firebase:firebase-messaging:15.0.2"
     // implementation "com.google.firebase:firebase-perf:15.1.0"
-    implementation "com.google.firebase:firebase-storage:15.0.2"
-    
+    implementation 'com.google.firebase:firebase-storage:15.0.2'
     /*implementation('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
-        transitive = true
-    }*/
-
+            transitive = true
+        }*/
     implementation 'com.android.support:multidex:1.0.3'
-
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "com.android.support:appcompat-v7:27.1.1"
-    implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.facebook.react:react-native:+'
+    // From node_modules
 }
 
 // Run this once to be able to run the application with BUCK
