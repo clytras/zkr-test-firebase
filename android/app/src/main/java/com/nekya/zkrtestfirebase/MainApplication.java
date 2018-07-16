@@ -1,8 +1,15 @@
-package com.invertase.rnfirebasestarter;
+package com.nekya.zkrtestfirebase;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.RNFirebasePackage;
+import com.microsoft.appcenter.reactnative.crashes.AppCenterReactNativeCrashesPackage;
+import com.microsoft.appcenter.reactnative.analytics.AppCenterReactNativeAnalyticsPackage;
+import com.microsoft.appcenter.reactnative.appcenter.AppCenterReactNativePackage;
+import io.invertase.firebase.RNFirebasePackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -22,7 +29,7 @@ import io.invertase.firebase.messaging.RNFirebaseMessagingPackage; // Firebase C
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage; // Firebase Notifications
 import io.invertase.firebase.perf.RNFirebasePerformancePackage; // Firebase Performance
 import io.invertase.firebase.storage.RNFirebaseStoragePackage; // Firebase Storage
-import io.invertase.firebase.fabric.crashlytics.RNFirebaseCrashlyticsPackage; // Crashlytics
+//import io.invertase.firebase.fabric.crashlytics.RNFirebaseCrashlyticsPackage; // Crashlytics
 
 import java.util.Arrays;
 import java.util.List;
@@ -39,19 +46,23 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
+            new RNFirebasePackage(),
+            new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appCenterCrashes_whenToSendCrashes)),
+            new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appCenterAnalytics_whenToEnableAnalytics)),
+            new AppCenterReactNativePackage(MainApplication.this),
         new RNFirebasePackage(),
         // add/remove these packages as appropriate
-        new RNFirebaseAdMobPackage(),
-        new RNFirebaseAnalyticsPackage(),
-        new RNFirebaseAuthPackage(),
-        new RNFirebaseCrashlyticsPackage(),
-        new RNFirebaseDatabasePackage(),
+        //new RNFirebaseAdMobPackage(),
+        //new RNFirebaseAnalyticsPackage(),
+        //new RNFirebaseAuthPackage(),
+        //new RNFirebaseCrashlyticsPackage(),
+        //new RNFirebaseDatabasePackage(),
         new RNFirebaseFirestorePackage(),
-        new RNFirebaseInstanceIdPackage(),
-        new RNFirebaseLinksPackage(),
-        new RNFirebaseMessagingPackage(),
-        new RNFirebaseNotificationsPackage(),
-        new RNFirebasePerformancePackage(),
+        //new RNFirebaseInstanceIdPackage(),
+        //new RNFirebaseLinksPackage(),
+        //new RNFirebaseMessagingPackage(),
+        //new RNFirebaseNotificationsPackage(),
+        //new RNFirebasePerformancePackage(),
         new RNFirebaseRemoteConfigPackage(),
         new RNFirebaseStoragePackage()
       );
@@ -66,6 +77,12 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public ReactNativeHost getReactNativeHost() {
     return mReactNativeHost;
+  }
+
+  @Override
+  protected void attachBaseContext(Context context) {
+    super.attachBaseContext(context);
+    MultiDex.install(this);
   }
 
   @Override

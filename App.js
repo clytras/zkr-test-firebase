@@ -21,7 +21,7 @@ export default class App extends React.Component {
         <View style={styles.container}>
         <Image source={require('./assets/RNFirebase.png')} style={[styles.logo]} />
         <Text style={styles.welcome}>
-          Welcome to the React Native{'\n'}Firebase starter project!
+          Welcome to the React Native{'\n'}Firebase starter project ZKR 0034!
         </Text>
         <Text style={styles.instructions}>
           To get started, edit App.js
@@ -83,7 +83,9 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   modules: {
-    margin: 20,
+    margin: '3%',
+    padding: '3%',
+    backgroundColor: 'green'
   },
   modulesHeader: {
     fontSize: 16,

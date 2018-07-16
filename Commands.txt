@@ -1,0 +1,21 @@
+
+
+Broken pipe
+------------------------------------------------------------------
+Restart your computer and check
+
+If you are using Linux try to kill the port using
+
+fuser -k 8601/tcp
+
+If you are using mac try to kill the port using
+
+lsof -P | grep '8601' | awk '{print $2}' | xargs kill
+
+
+adb shell input keyevent 82
+
+adb reverse tcp:8081 tcp:8081
+
+
+https://stackoverflow.com/questions/44446523/unable-to-load-script-from-assets-index-android-bundle-on-windows
