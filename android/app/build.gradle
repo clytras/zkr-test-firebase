@@ -120,10 +120,10 @@ android {
                 keyAlias MYAPP_RELEASE_KEY_ALIAS
                 keyPassword MYAPP_RELEASE_KEY_PASSWORD
             }*/
-            keyAlias 'zkr-test-firebase'
+            /*keyAlias 'zkr-test-firebase'
             keyPassword '02-ro61U:9zl_Hjf3O7s'
             storeFile file('zkr-test-firebase-release.keystore')
-            storePassword '02-ro61U:9zl_Hjf3O7s'
+            storePassword '02-ro61U:9zl_Hjf3O7s'*/
         }
     }
     splits {
